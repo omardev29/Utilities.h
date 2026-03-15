@@ -20,7 +20,7 @@
 #define RESET "\033[0m"
 
 namespace num {
-    // Versi�n para std::string
+    // std::string version
     inline bool is_n(const std::string& s) {
         if (s.empty()) return false;
         double dummy; // Usamos double para que sirva para enteros y decimales
@@ -28,7 +28,7 @@ namespace num {
         return ec == std::errc{} && ptr == s.data() + s.size();
     }
 
-    // Versi�n para char* (C-style string)
+    // char* version (C-style string)
     inline bool is_n(const char* s) {
         if (!s || s[0] == '\0') return false;
         double dummy;
@@ -36,20 +36,18 @@ namespace num {
         return ec == std::errc{} && (*ptr == '\0');
     }
 
-    // Convertir double a char* (C-style string)
-    // Retorna el puntero al buffer si tiene �xito, o nullptr si falla
+    // double to char* (C-style string)
     inline char* to_char(double val, char* buf = nullptr) {
         static thread_local char internal_buf[32];
         if (!buf) {
             buf = internal_buf;
         }
-        // antes ped�a un size_t len como otro par�metro
         size_t len{ sizeof(buf) };
-        // len - 1 para dejar espacio al terminador nulo '\0'
+        // len - 1 to avoid '\0'
         auto [ptr, ec] = std::to_chars(buf, buf + len - 1, val);
 
         if (ec == std::errc{}) {
-            *ptr = '\0'; // std::to_chars NO a�ade el null-terminator
+            *ptr = '\0'; 
             return buf;
         }
         return nullptr;
