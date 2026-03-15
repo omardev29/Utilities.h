@@ -9,6 +9,7 @@
 
 #if defined(__cpp_lib_print)
     #define USE_PRINT 1
+    #include <print>
 #else
     #define USE_PRINT 0
     extern "C" inline int printf(const char* format, ...);
@@ -52,36 +53,31 @@ namespace num {
         }
         return nullptr;
     }
+
+    inline std::mt19937& get_gen() {
+        static std::random_device rd;
+
+        static std::mt19937 gen(rd());
+
+        return gen;
+    }
     
     inline int randi_range(const int& min, const int& max) {
-        std::random_device rd;
-
-        std::mt19937 gen(rd());
-
         std::uniform_int_distribution<> dis(min, max);
 
-        return dis(gen);
+        return dis(get_gen());
 
     }
 
     inline double randf_range(const double& min, const double& max) {
-        std::random_device rd;
-
-        std::mt19937 gen(rd());
-
         std::uniform_real_distribution<double> dis(min, max);
-
-        return dis(gen);
+        return dis(get_gen());
     }
 
     inline double randfn() {
-        std::random_device rd;
-
-        std::mt19937 gen(rd());
-
         std::uniform_real_distribution<double> dis(0, 1);
 
-        return dis(gen);
+        return dis(get_gen());
     }
 }
 
