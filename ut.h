@@ -14,7 +14,7 @@
     extern "C" inline int printf(const char* format, ...);
 #endif
 
-//colores
+//colors
 #define ESC "\033["
 #define RED "31m"
 #define RESET "\033[0m"
