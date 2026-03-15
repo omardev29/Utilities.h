@@ -20,6 +20,18 @@
 #define RED "31m"
 #define RESET "\033[0m"
 
+// local functions
+namespace {
+        inline std::mt19937& get_gen() {
+            static std::random_device rd;
+
+            static std::mt19937 gen(rd());
+
+            return gen;
+        }
+}
+
+
 namespace num {
     // std::string version
     inline bool is_n(const std::string& s) {
@@ -54,13 +66,7 @@ namespace num {
         return nullptr;
     }
 
-    inline std::mt19937& get_gen() {
-        static std::random_device rd;
-
-        static std::mt19937 gen(rd());
-
-        return gen;
-    }
+    
     
     inline int randi_range(const int& min, const int& max) {
         std::uniform_int_distribution<> dis(min, max);
