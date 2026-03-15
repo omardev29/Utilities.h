@@ -4,6 +4,7 @@
 #include <charconv>
 #include <system_error>
 #include <version>
+#include <random>
 
 
 #if defined(__cpp_lib_print)
@@ -52,6 +53,37 @@ namespace num {
             return buf;
         }
         return nullptr;
+    }
+    
+    inline int randi_range(const int& min, const int& max) {
+        std::random_device rd;
+
+        std::mt19937 gen(rd());
+
+        std::uniform_int_distribution<> dis(min, max);
+
+        return dis(gen);
+
+    }
+
+    inline double randf_range(const double& min, const double& max) {
+        std::random_device rd;
+
+        std::mt19937 gen(rd());
+
+        std::uniform_real_distribution<double> dis(min, max);
+
+        return dis(gen);
+    }
+
+    inline double randfn() {
+        std::random_device rd;
+
+        std::mt19937 gen(rd());
+
+        std::uniform_real_distribution<double> dis(0, 1);
+
+        return dis(gen);
     }
 }
 
