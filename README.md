@@ -1,2 +1,2 @@
 # Utilities.h
-A header with some functions
+A header with some functions for c++
